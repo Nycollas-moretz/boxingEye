@@ -8,7 +8,7 @@ from pose.yolo_pose import YoloPose
 def main():
 
     #inicializa captura
-    video_capture = VideoCapture() #0 para webcam, ou caminho para video file
+    video_capture = VideoCapture(0) #0 para webcam, ou caminho para video file
 
     #inicializa modelo de pose
     yolo_pose = YoloPose()
@@ -24,6 +24,7 @@ def main():
         #desenha o resultado no frame
         annotated_frame = yolo_pose.draw(frame, results)
 
+        print(results[0].keypoints)
         cv2.imshow("Pose Detection", annotated_frame)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):

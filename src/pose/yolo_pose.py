@@ -13,7 +13,7 @@ class YoloPose:
         """
         roda inferencia no frame
         """
-        results = self.model(frame)
+        results = self.model(frame, verbose=False) #roda a inferencia no frame, e retorna os resultados)
     
         return results
     
