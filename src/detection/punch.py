@@ -1,0 +1,1 @@
+#Vai fazer a identificação, é um jab? Um direto? Um gancho? E vai mostrar a porcentagem de cada um, para que possamos ter uma ideia do que o modelo está vendo, e para que possamos melhorar o modelo, caso ele esteja errando muito em alguma categoria.

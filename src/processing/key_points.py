@@ -1,0 +1,1 @@
+#vai extrair os key points, para que possamos usar eles para identificar os golpes, e para mostrar na tela, para que possamos vizualizar o que o modelo está vendo, e para mostrar as informações de cada boxeador
