@@ -6,7 +6,7 @@ from video.capture import VideoCapture
 from pose.yolo_pose import YoloPose
 from processing.key_points import KeyPointsExtractor
 from processing.motion import MotionAnalyzer
-
+from detection.punch import PunchDetector
 def main():
 
     #inicializa captura
@@ -22,8 +22,13 @@ def main():
     #inicializa analisador de movimento
     motion_analyzer = MotionAnalyzer()
 
+    #inicializa detector de golpes
+    punch_detector = PunchDetector()
+
     #contador de frames
     frame_count = 0
+    #cont jabs
+    cont_jabs = 0
     while True:
         
         #pega o frame da webcam / video
@@ -42,15 +47,33 @@ def main():
         #analisa o movimento da mão direita
         movement = motion_analyzer.compute_movement(right_hand)
 
-        if movement is not None:
-            dx, dy = movement
-            if frame_count % 5 == 0: #printa a cada 10 frames para não poluir o console
-                print(f"Right hand movement: dx={dx}, dy={dy}")
+        #detecta jab
+        is_jab = punch_detector.detect_jab(movement)
 
-        if right_hand is not None:
-             if frame_count % 10 == 0: #printa a cada 10 frames para não poluir o console
-                
-                print(f"Right hand key point: {right_hand}")
+        
+        if is_jab:
+            cont_jabs += 1
+
+        cv2.putText(
+            annotated_frame,
+            f"Jabs: {cont_jabs}",
+            (50, 100),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            1.2,
+            (0, 0, 255),
+            3
+        )
+        
+        # if movement is not None:
+        #     dx, dy = movement
+
+        #     if frame_count % 5 == 0: #printa a cada 10 frames para não poluir o console
+        #         print(f"Right hand movement: dx={dx}, dy={dy}")
+
+        # if right_hand is not None:
+
+        #      if frame_count % 10 == 0: #printa a cada 10 frames para não poluir o console
+                # print(f"Right hand key point: {right_hand}")
             
         cv2.imshow("Pose Detection", annotated_frame)
 
